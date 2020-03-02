@@ -19,16 +19,19 @@ all: start $(EXAMPLES)
 
 start:
 	@echo Start building
-	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(BIN_DIR)
 
 $(OBJ_DIR)/%.o: %.s
+	@mkdir -p $(OBJ_DIR)
 	@$(RISCV_AS) $(AS_FLAGS) $< -o $@
 
 $(BIN_DIR)/%.out: $(OBJ_DIR)/%.o
+	@mkdir -p $(BIN_DIR)
 	@$(RISCV_LD) $(LD_FLAGS) $< -o $@
 	@echo '-> $@ is built'
+
+.PRECIOUS: $(OBJ_DIR)/%.o
 
 .PHONY: clean
 clean:
 	@rm -rf $(OBJ_DIR)
+	@rm -rf $(BIN_DIR)
