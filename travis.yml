@@ -1,0 +1,10 @@
+notifications:
+  email: false
+
+dist: bionic
+branches:
+  only:
+  - master
+
+script:
+  - make all
