@@ -14,13 +14,10 @@ BIN_DIR:=bin
 # Get all files with .s extension and replace it with .out
 EXAMPLES?=$(patsubst %.s,$(BIN_DIR)/%.out,$(wildcard *.s))
 
-all: start $(EXAMPLES)
+all: $(EXAMPLES)
 	@echo Done
 
-start:
-	@echo Start building
-
-$(OBJ_DIR)/%.o: %.s
+$(OBJ_DIR)/%.o: %.s Makefile
 	@mkdir -p $(OBJ_DIR)
 	@$(RISCV_AS) $(AS_FLAGS) $< -o $@
 
