@@ -1,0 +1,7 @@
+notifications:
+  email: false
+
+dist: bionic
+
+script:
+  - make all
