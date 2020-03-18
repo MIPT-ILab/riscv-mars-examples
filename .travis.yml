@@ -23,8 +23,8 @@ install:
   - sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
   - make all install MAKEINFO=true > /dev/null
   - cd ..
-  - chmod +x ./.run_test.sh
+  - chmod +x ./.run-tests.sh
   
 script:
   - make all
-  - ./.run_test.sh
+  - ./.run-tests.sh
