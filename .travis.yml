@@ -2,6 +2,23 @@ notifications:
   email: false
 
 dist: bionic
+language: c
 
+addons:
+  apt:
+    packages:
+      - texinfo 
+
+install:
+  - mkdir riscv-binutils
+  - PATH=$PATH:$TRAVIS_BUILD_DIR/riscv-binutils/bin
+  - wget http://ftp.gnu.org/gnu/binutils/binutils-2.34.tar.bz2
+  - tar xjf binutils-2.34.tar.bz2
+  - cd binutils-2.34
+  - ./configure --target=riscv64-unknown-elf --prefix=$TRAVIS_BUILD_DIR/riscv-binutils --disable-gprof > /dev/null
+  - sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
+  - make all install MAKEINFO=true > /dev/null
+  - cd ..
+  
 script:
   - make all
