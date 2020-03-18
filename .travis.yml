@@ -4,6 +4,10 @@ notifications:
 dist: bionic
 language: c
 
+branches:
+  only:
+  - master
+
 addons:
   apt:
     packages:
@@ -19,6 +23,8 @@ install:
   - sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
   - make all install MAKEINFO=true > /dev/null
   - cd ..
+  - chmod +x ./.run_test.sh
   
 script:
   - make all
+  - ./.run_test.sh
