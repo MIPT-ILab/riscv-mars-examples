@@ -22,9 +22,13 @@ install:
   - ./configure --target=riscv64-unknown-elf --prefix=$TRAVIS_BUILD_DIR/riscv-binutils --disable-gprof > /dev/null
   - sed -i 's/-O2/-O0/g' Makefile # Optimize compilation speed
   - make all install MAKEINFO=true > /dev/null
-  - cd ..
+  - cd $TRAVIS_BUILD_DIR
+  - git clone https://github.com/mipt-ilab/mipt-mips --depth=1 --recursive
+  - mkdir sim && cd sim
+  - cmake $TRAVIS_BUILD_DIR/mipt-mips/simulator -DCMAKE_BUILD_TYPE=Debug -G Ninja && ninja mipt-v
+  - cd $TRAVIS_BUILD_DIR
   - chmod +x ./.run-tests.sh
   
 script:
   - make all
-  - ./.run-tests.sh
+  - ./.run-tests.sh $TRAVIS_BUILD_DIR/sim/mipt-v
