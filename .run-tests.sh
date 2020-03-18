@@ -11,5 +11,5 @@ run_test()
     echo $3 | $MIPT_V -f -I $1 -b $2 --mars && echo " success" || exit 1
 }
 
-run_test riscv64 sum.out "3 4"
-run_test riscv64 rv32-scall "81"
+run_test riscv64 bin/sum.out "3 4"
+run_test riscv64 bin/rv32-scall.out "81"
